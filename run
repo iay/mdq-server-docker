@@ -3,4 +3,5 @@ docker run -t --rm \
     --name=mdq_incommon --hostname="mdq_incommon" \
     -p 8080:8080 \
     -v `pwd`/logs:/opt/mdq-server/logs \
+    -v `pwd`/creds:/opt/mdq-server/creds \
     mdq_incommon
