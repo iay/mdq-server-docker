@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+docker stop mdq_incommon
+docker rm mdq_incommon
