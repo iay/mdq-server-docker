@@ -12,8 +12,8 @@ from the library [Java image](https://registry.hub.docker.com/_/java/).
 
 ## Configuration and Build
 
-Configuration of the application is partly performed in the upstream
-[`mdq-server`](https://github.com/iay/mdq-server) and partly through
+Configuration of the application is partly performed (at present) in the upstream
+[`mdq-server`](https://github.com/iay/mdq-server) project and partly through
 properties set in the `application.properties` file.
 
 If you don't want to sign the resulting metadata responses at all,
