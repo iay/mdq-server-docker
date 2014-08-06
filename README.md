@@ -29,7 +29,8 @@ context has to be set to '/incommon'.
 
 By default, the web application is exposed on the container's port 80, the standard
 port for HTTP. To change this, you need to change the `server.port` in
-`application.properties` and the `EXPOSE` line in `Dockerfile`.
+`application.properties` and the `EXPOSE` line in `Dockerfile`. It's usually
+better to take care of this in the `docker run` command, though.
 
 If you want to use signing credentials of your own, create a directory
 called `creds` inside the repository and put the private key and
