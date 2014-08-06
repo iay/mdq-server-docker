@@ -14,7 +14,7 @@ WORKDIR /opt/mdq-server
 ADD mdq-server-0.0.1-SNAPSHOT.jar /opt/mdq-server/
 ADD application.properties        /opt/mdq-server/
 
-EXPOSE 8080
+EXPOSE 80
 
 VOLUME ["/opt/mdq-server/logs", "/opt/mdq-server/creds"]
 

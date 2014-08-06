@@ -27,6 +27,10 @@ passing through URL-encoded path components. In my case, this can be fixed
 by passing the whole URI path through but it means that the application
 context has to be set to '/incommon'.
 
+By default, the web application is exposed on the container's port 80, the standard
+port for HTTP. To change this, you need to change the `server.port` in
+`application.properties` and the `EXPOSE` line in `Dockerfile`.
+
 If you want to use signing credentials of your own, create a directory
 called `creds` inside the repository and put the private key and
 certificate in there. This directory will be mounted as a volume inside
@@ -74,6 +78,10 @@ connected to the container:
 
 Because they are mounted as volumes, the contents of these two directories
 persist between container invocations.
+
+By default, the `./run` script does *not* map a host port for the container,
+under the assumption that the deployment will be behind some kind of proxy.
+Uncomment the definition of `MAP_PORT` if you need to map a host port.
 
 The `./stop` script stops the container and then removes it.
 
