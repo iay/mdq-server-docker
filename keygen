@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
+
+# save the current file creation mask
+UMASK=`umask`
+
 mkdir creds
+
+# make sure that the secret key is never group or world readable
 umask 077
+
 openssl req -x509 -newkey rsa:2048 -keyout creds/signing.key -nodes -sha1 \
     -days 3650 -out creds/signing.crt -subj /CN=testing
+
+# restore the file creation mask
+umask $UMASK
+
+# make the certificate readable
+chmod +r creds/signing.crt
