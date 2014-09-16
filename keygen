@@ -9,7 +9,8 @@ mkdir creds
 umask 077
 
 openssl req -x509 -newkey rsa:2048 -keyout creds/signing.key -nodes -sha1 \
-    -days 3650 -out creds/signing.crt -subj /CN=testing
+    -days 3650 -out creds/signing.crt \
+    -subj "/C=US/O=InCommon LLC/CN=InCommon Metadata Query Server (BETA) Signing Key"
 
 # restore the file creation mask
 umask $UMASK
