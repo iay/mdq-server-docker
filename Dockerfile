@@ -12,7 +12,6 @@ MAINTAINER Ian Young <ian@iay.org.uk>
 WORKDIR /opt/mdq-server
 
 ADD mdq-server-0.0.1-SNAPSHOT.jar /opt/mdq-server/
-ADD application.properties        /opt/mdq-server/
 ADD resources                     /opt/mdq-server/
 
 EXPOSE 80

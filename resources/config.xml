@@ -12,7 +12,7 @@
     <!--
         Import InCommon beans.
     -->
-    <import resource="file:/opt/mdq-server/us_incommon/beans.xml"/>
+    <import resource="file:${mdq.home}/us_incommon/beans.xml"/>
 
     <!--
         Pipeline used to acquire metadata for service.

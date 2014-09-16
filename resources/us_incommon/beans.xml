@@ -47,7 +47,7 @@
     <bean id="us_incommon_signingCertificate" parent="X509CertificateFactoryBean">
         <property name="resource">
             <bean parent="FileSystemResource">
-                <constructor-arg value="/opt/mdq-server/us_incommon/inc-md-cert.pem"/>
+                <constructor-arg value="${mdq.home}/us_incommon/inc-md-cert.pem"/>
             </bean>
         </property>
     </bean>
