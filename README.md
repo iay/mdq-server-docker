@@ -122,7 +122,7 @@ follows:
 
 ### `systemd` Integration
 
-`service/mdq_incommon` is for `systems`-based systems. It is at present untested.
+`service/mdq_incommon` is for `systemd`-based systems. It is at present untested.
 
 ## Copyright and License
 
