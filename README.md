@@ -114,9 +114,14 @@ The `service` directory contains scripts for host operating system service integ
 
 ### `upstart` Integration
 
-`service/mdq_incommon.conf` is for `upstart`-based systems such as Ubuntu 14.04 LTS. Install it as
-follows:
+`service/mdq_incommon.conf` is for `upstart`-based systems such as Ubuntu 14.04 LTS.
+To work round a [known problem in Docker](https://github.com/docker/docker/issues/6647),
+it makes use of the `inotifywait` command from the `inotify-tools` package, which may
+not already be installed.
 
+Install the service configuration as follows:
+
+    # apt-get install inotify-tools
     # cp service/mdq_incommon.conf /etc/init
     # initctl start mdq_incommon
 
