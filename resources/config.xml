@@ -17,7 +17,7 @@
     <!--
         Import eduGAIN beans.
     -->
-    <import resource="classpath:int_edugain/beans.xml"/>
+    <import resource="file:${mdq.home}/int_edugain/beans.xml"/>
 
     <!--
         removeInCommonEntities
