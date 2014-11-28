@@ -1,11 +1,7 @@
 #
 # mdq-server base dockerfile
 #
-# For now at least, base this on the library "java" image.
-# This is based on Ubuntu Jessie, updated, with the provided
-# Java 7 OpenJDK added.
-#
-FROM java:7
+FROM dockerfile/java:oracle-java8
 
 MAINTAINER Ian Young <ian@iay.org.uk>
 
