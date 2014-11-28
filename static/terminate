@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+docker stop mdq-server-static
+docker rm mdq-server-static

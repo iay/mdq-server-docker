@@ -14,6 +14,10 @@ deployments:
 serve up Identity Provider metadata from the
 [InCommon Federation](https://incommon.org).
 
+* [`static`](static/) serves up metadata sourced from a static
+metadata aggregate. The intended use is as a test target for
+Shibboleth unit tests.
+
 * (others TBI)
 
 Each deployment is built on top of the `mdq-server-base` image,

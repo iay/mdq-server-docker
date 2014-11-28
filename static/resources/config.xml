@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    default-lazy-init="true"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--
+        Pipeline used to acquire metadata for service.
+
+        Input: empty collection.
+
+        Output: collection of individual entity metadata items.
+    -->
+    <bean id="source.SAML" parent="SimplePipeline">
+        <property name="stages">
+            <list>
+                <bean parent="DOMResourceSourceStage">
+                    <property name="DOMResource">
+                        <bean parent="FileSystemResource">
+                            <constructor-arg value="${mdq.home}/entities.xml"/>
+                        </bean>
+                    </property>
+                </bean>
+
+                <ref bean="disassemble"/>
+
+                <ref bean="populateItemIds"/>
+
+                <bean class="net.shibboleth.metadata.pipeline.ItemIdTransformStage">
+                    <property name="idTransformers">
+                        <list>
+                            <bean class="net.shibboleth.metadata.pipeline.MDQuerySHA1ItemIdTransformer"/>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>
