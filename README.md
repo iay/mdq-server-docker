@@ -18,7 +18,7 @@ serve up Identity Provider metadata from the
 
 Each deployment is built on top of the `mdq-server-base` image,
 which factors out a lot of common configuration. The recipe for
-the `mdq-server-base` image can be found in the `base` directory.
+the `mdq-server-base` image can be found in the [`base`](base/) directory.
 You should build the base image before building any of the
 deployment images.
 
