@@ -30,7 +30,7 @@ the kind of proxy you are using. In my case, I'm using
 [odd but by-design behaviour](http://trac.nginx.org/nginx/ticket/262) when
 passing through URL-encoded path components. In my case, this can be fixed
 by passing the whole URI path through but it means that the application
-context has to be set to '/incommon'.
+context has to be set to '/global'.
 
 By default, the web application is exposed on the container's port 80, the standard
 port for HTTP. To change this, you need to change the `server.port` in
@@ -51,11 +51,6 @@ If you want to sign responses but don't have existing credentials you
 want to use, just execute the `./keygen` script once. This will create a
 `creds` directory and populate it with a 2048-bit private key and a
 corresponding 10-year self-signed certificate.
-
-Before attempting to build the image for the Docker container, you
-need to acquire a copy of `mdq-server-0.0.1-SNAPSHOT.jar` by
-running `mvn -Prelease clean package` on a copy of the `mdq-server`
-project.
 
 To build the image, execute the `./build` script. This will tag the
 resulting image as `mdq-server-incommon`, but won't save it anywhere.
@@ -93,13 +88,9 @@ The `./stop` script stops the container.
 
 The `./terminate` script stops the container *and then removes it.*
 
-The `./cleanup` script can be used at any time to remove orphaned
-containers and images, which Docker tends to create in abundance during
-development. Use `./cleanup -n` to "dry run" and see what it would remove.
-
 ## Testing
 
-You can run the `mdq-server` deployment directly using the `./test` script in
+You can run the `mdq-server-incommon` deployment directly using the `./test` script in
 order to test the configuration in an environment that does not have
 Docker available.
 
