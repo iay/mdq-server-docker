@@ -1,5 +1,5 @@
 #
-# mdq-server dockerfile
+# mdq-server base dockerfile
 #
 # For now at least, base this on the library "java" image.
 # This is based on Ubuntu Jessie, updated, with the provided
@@ -12,7 +12,6 @@ MAINTAINER Ian Young <ian@iay.org.uk>
 WORKDIR /opt/mdq-server
 
 ADD mdq-server-0.0.1-SNAPSHOT.jar /opt/mdq-server/
-ADD resources                     /opt/mdq-server/
 
 EXPOSE 80
 

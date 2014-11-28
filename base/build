@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+#
+# Build the base docker image.
+#
+
+#
+# Make sure we have the latest version of the Java image we use.
+#
+docker pull java:7
+
+#
+# Acquire the .jar artifact.
+#
+mvn dependency:copy
+
+#
+# Build the base image.
+#
+docker build -t mdq-server-base .
+
+# End.
