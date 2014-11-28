@@ -1,0 +1,14 @@
+# systemd script for the mdq-server-ukf docker container
+
+[Unit]
+Description=mdq-server-ukf container
+Author=Ian Young <ian@iay.org.uk>
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a mdq-server-ukf
+ExecStop=/usr/bin/docker stop -t 2 mdq-server-ukf
+
+[Install]
+WantedBy=local.target

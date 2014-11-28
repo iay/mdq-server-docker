@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+docker stop mdq-server-ukf
+docker rm mdq-server-ukf

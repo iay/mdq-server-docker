@@ -18,7 +18,9 @@ serve up Identity Provider metadata from the
 metadata aggregate. The intended use is as a test target for
 Shibboleth unit tests.
 
-* (others TBI)
+* [`ukf`](ukf/) sources metadata from the
+[UK Access Management Federation](http://ukfederation.org.uk/)'s
+production metadata aggregate.
 
 Each deployment is built on top of the `mdq-server-base` image,
 which factors out a lot of common configuration. The recipe for

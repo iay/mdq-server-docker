@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+#
+# Uncomment the following if the container is directly exposed.
+#
+#MAP_PORT="-p 80:80"
+
+docker run -t --rm \
+    --name=mdq-server-ukf --hostname="mdq-server-ukf" \
+    -v `pwd`/logs:/opt/mdq-server/logs \
+    -v `pwd`/creds:/opt/mdq-server/creds \
+    $MAP_PORT \
+    mdq-server-ukf

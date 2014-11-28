@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Common beans for this channel.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    default-lazy-init="true"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--
+        Location of various resources.
+    -->
+    <bean id="uk_productionAggregate_url" class="java.lang.String">
+        <constructor-arg value="http://metadata.ukfederation.org.uk/ukfederation-metadata.xml"/>
+    </bean>
+    <bean id="uk_exportAggregate_url" class="java.lang.String">
+        <constructor-arg value="http://metadata.ukfederation.org.uk/ukfederation-export.xml"/>
+    </bean>
+    
+    
+    <!--
+        uk_federation_uri
+        
+        URI for the UK federation.  Used in several contexts:
+        
+        * as the Name attribute for the main EntitiesDescriptor in UK federation metadata
+          (not always the document element)
+          
+        * in mdrpi:RegistrationInfo, as the unique identifier for the UK federation registrar
+        
+        * in mdrpi:PublicationInfo, as the unique identifier for the UK federation publisher
+    -->
+    <bean id="uk_federation_uri" class="java.lang.String">
+        <constructor-arg value="http://ukfederation.org.uk"/>
+    </bean>
+
+
+    <!--
+        Fetch the export aggregate.
+    -->
+    <bean id="uk_exportAggregate" parent="DOMResourceSourceStage"
+        p:id="uk_exportAggregate">
+        <property name="DOMResource">
+            <bean parent="HTTPResource">
+                <constructor-arg name="client" ref="httpClient"/>
+                <constructor-arg name="url" ref="uk_exportAggregate_url"/>        
+            </bean>
+        </property>
+    </bean>
+    
+    
+    <!--
+        Fetch the production aggregate.
+    -->
+    <bean id="uk_productionAggregate" parent="DOMResourceSourceStage"
+        p:id="uk_productionAggregate">
+        <property name="DOMResource">
+            <bean parent="HTTPResource">
+                <constructor-arg name="client" ref="httpClient"/>
+                <constructor-arg name="url" ref="uk_productionAggregate_url"/>        
+            </bean>
+        </property>
+    </bean>
+    
+    
+    <!--
+        Metadata signing certificate.
+    -->
+    <bean id="uk_signingCertificate" parent="X509CertificateFactoryBean">
+        <property name="resource">
+            <bean parent="FileSystemResource">
+                <constructor-arg value="${mdq.home}/uk/ukfederation-2014.pem"/>
+            </bean>
+        </property>
+    </bean>
+    
+    
+    <!--
+        Check the signature on a document.
+    -->
+    <bean id="uk_checkSignature" parent="XMLSignatureValidationStage"
+        p:id="uk_checkSignature">
+        <property name="verificationCertificate" ref="uk_signingCertificate"/>
+    </bean>
+    
+    
+    <!--
+        uk_check_validUntil
+        
+        Check that an aggregate has a validUntil instant specified, and that it has not
+        yet expired.  Sets a bound of 30 days on the validity interval; 14 days is the
+        expected value.
+    -->
+    <bean id="uk_check_validUntil" parent="stage_parent"
+        class="net.shibboleth.metadata.dom.saml.ValidateValidUntilStage"
+        p:id="uk_check_validUntil">
+        <!--
+            The validUntil attribute must be present.
+        -->
+        <property name="requireValidUntil" value="true"/>
+        <!--
+            Validity interval must not exceed 30 days.
+        -->
+        <property name="maxValidityInterval" value="#{ 1000L * 60 * 60 * 24 * 30 }"/>
+    </bean>
+    
+    
+    <!--
+        Populate UKId values from entities.
+    -->
+    <bean id="uk_populateIds" parent="stage_parent"
+        class="uk.org.ukfederation.mda.EntityDescriptorUKIdPopulationStage"
+        p:id="uk_populateIds"/>
+    
+
+    <!--
+        UK federation named EntitiesDescriptor assembler pipeline stage.
+        
+        Name attribute is set to the federation URI.  UK ordering is applied.
+    -->
+    <bean id="uk_assemble" parent="stage_parent"
+        class="net.shibboleth.metadata.dom.saml.EntitiesDescriptorAssemblerStage"
+        p:id="uk_assemble">
+        <property name="descriptorName" ref="uk_federation_uri"/>
+        <property name="itemOrderingStrategy">
+            <bean class="uk.org.ukfederation.mda.UKEntityOrderingStrategy"/>
+        </property>
+    </bean>
+    
+
+    <!--
+        UK federation unnamed EntitiesDescriptor assembler pipeline stage.
+        
+        Name attribute is not set.  UK ordering is applied.
+    -->
+    <bean id="uk_assembleUnnamed" parent="stage_parent"
+        class="net.shibboleth.metadata.dom.saml.EntitiesDescriptorAssemblerStage"
+        p:id="uk_assembleUnnamed">
+        <property name="itemOrderingStrategy">
+            <bean class="uk.org.ukfederation.mda.UKEntityOrderingStrategy"/>
+        </property>
+    </bean>
+    
+
+    <!--
+        Fetch and process the registered entities as a collection.
+    -->
+    <bean id="uk_registeredEntities" parent="CompositeStage"
+        p:id="uk_registeredEntities">
+        <property name="composedStages">
+            <list>
+                <ref bean="uk_fetchFragmentFiles"/>
+                <ref bean="uk_processFragment"/>
+                <ref bean="uk_processScopes"/>
+                <ref bean="populateItemIds"/>
+                <ref bean="uk_populateIds"/>
+                <ref bean="uk_default_regauth"/>
+                <ref bean="populateRegistrationAuthorities"/>
+                
+                <!--
+                    Add REFEDS Hide from Discovery category as a standardised
+                    equivalent to our HideFromWAYF element.
+                -->
+                <bean p:id="uk_addHideFromDiscovery" parent="XSLTransformationStage">
+                    <property name="XSLResource">
+                        <bean parent="ClassPathResource">
+                            <constructor-arg value="uk/add_hide_category.xsl"/>
+                        </bean>
+                    </property>                    
+                </bean>
+                
+                <ref bean="checkSchemas"/>
+                <ref bean="CHECK_std"/>
+                <ref bean="check_ukreg"/>
+                <ref bean="check_uk_keydesc_key"/>
+                <ref bean="check_uk_mdattr"/>
+                <ref bean="check_uk_mdrps"/>
+                <ref bean="check_uk_urlenc"/>
+                <ref bean="mdui_dn_en_present"/>
+                <ref bean="mdui_dn_en_match"/>
+                <ref bean="check_dup_display"/>
+                
+                <bean parent="X509ValidationStage"
+                    p:id="checkCertificates">
+                    <property name="validators">
+                        <list>
+                            <!-- Error on RSA key length less than 2048 bits. -->
+                            <bean parent="X509RSAKeyLengthValidator"
+                                p:warningBoundary="0" p:errorBoundary="2048"/>
+                            <!-- Error on small RSA public exponents. -->
+                            <bean parent="X509RSAExponentValidator"/>
+                            <!-- Error on inconsistent subjectAltNames. -->
+                            <bean parent="X509ConsistentNameValidator"/>
+                            
+                            <!--
+                                Debian weak key blacklists.
+                                
+                                Don't need to check for keys below our minimum key size.
+                            -->
+                            <ref bean="debian.2048"/>
+                            <ref bean="debian.4096"/>
+                            
+                            <!--
+                                Compromised key blacklists.
+                                
+                                Again, don't need to check for keys below our minimum key size.
+                            -->
+                            <ref bean="compromised.2048"/>
+                        </list>
+                    </property>
+                </bean>
+
+                <!-- failure of any check on registered metadata is fatal -->
+                <ref bean="errorTerminatingFilter"/>
+            </list>
+        </property>
+    </bean>
+    
+    
+</beans>
