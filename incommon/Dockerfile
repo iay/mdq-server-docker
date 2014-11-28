@@ -1,5 +1,5 @@
 #
-# mdq-server dockerfile
+# mdq-server-incommon dockerfile
 #
 FROM mdq-server-base
 
