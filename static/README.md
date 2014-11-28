@@ -1,11 +1,12 @@
-# `mdq-server-incommon`
+# `mdq-server-static`
 
-## `mdq-server` Proof of Concept Deployment
+## `mdq-server` Static Deployment
 
-This project is a proof of concept deployment of the
+This Docker image deploys the
 [`mdq-server`](https://github.com/iay/mdq-server) web application
-customised to serve up Identity Provider metadata from the
-[InCommon Federation](https://incommon.org).
+to serve up entity metadata from a fixed four-entity aggregate.
+The intended application is as a test target for Shibboleth
+unit tests.
 
 Deployment is via a [Docker](http://www.docker.com) container built
 on top of the `mdq-server-base` image built using the recipe in the
@@ -30,7 +31,7 @@ the kind of proxy you are using. In my case, I'm using
 [odd but by-design behaviour](http://trac.nginx.org/nginx/ticket/262) when
 passing through URL-encoded path components. In my case, this can be fixed
 by passing the whole URI path through but it means that the application
-context has to be set to '/incommon'.
+context has to be set to '/static'.
 
 By default, the web application is exposed on the container's port 80, the standard
 port for HTTP. To change this, you need to change the `server.port` in
@@ -52,18 +53,13 @@ want to use, just execute the `./keygen` script once. This will create a
 `creds` directory and populate it with a 2048-bit private key and a
 corresponding 10-year self-signed certificate.
 
-Before attempting to build the image for the Docker container, you
-need to acquire a copy of `mdq-server-0.0.1-SNAPSHOT.jar` by
-running `mvn -Prelease clean package` on a copy of the `mdq-server`
-project.
-
 To build the image, execute the `./build` script. This will tag the
-resulting image as `mdq-server-incommon`, but won't save it anywhere.
+resulting image as `mdq-server-static`, but won't save it anywhere.
 
 ## Simple Container Operation
 
-The script `./run` is provided to fire up a copy of the `mdq-server-incommon`
-image in a new container also called `mdq-server-incommon`. At present, this
+The script `./run` is provided to fire up a copy of the `mdq-server-static`
+image in a new container also called `mdq-server-static`. At present, this
 is set up to leave your terminal connected to the container so that
 you will see the initial logging as the application starts up. You
 can hit Ctrl+C when you've seen enough: you don't need to worry about
@@ -93,13 +89,9 @@ The `./stop` script stops the container.
 
 The `./terminate` script stops the container *and then removes it.*
 
-The `./cleanup` script can be used at any time to remove orphaned
-containers and images, which Docker tends to create in abundance during
-development. Use `./cleanup -n` to "dry run" and see what it would remove.
-
 ## Testing
 
-You can run the `mdq-server` deployment directly using the `./test` script in
+You can run the `mdq-server-static` deployment directly using the `./test` script in
 order to test the configuration in an environment that does not have
 Docker available.
 
@@ -115,7 +107,7 @@ The `service` directory contains scripts for host operating system service integ
 
 ### `upstart` Integration
 
-`service/mdq-server-ncommon.conf` is for `upstart`-based systems such as Ubuntu 14.04 LTS.
+`service/mdq-server-static.conf` is for `upstart`-based systems such as Ubuntu 14.04 LTS.
 To work round a [known problem in Docker](https://github.com/docker/docker/issues/6647),
 it makes use of the `inotifywait` command from the `inotify-tools` package, which may
 not already be installed.
@@ -123,8 +115,8 @@ not already be installed.
 Install the service configuration as follows:
 
     # apt-get install inotify-tools
-    # cp service/mdq-server-incommon.conf /etc/init
-    # initctl start mdq-server-incommon
+    # cp service/mdq-server-static.conf /etc/init
+    # initctl start mdq-server-static
 
 ### `systemd` Integration
 
