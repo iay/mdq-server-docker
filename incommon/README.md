@@ -58,12 +58,12 @@ running `mvn -Prelease clean package` on a copy of the `mdq-server`
 project.
 
 To build the image, execute the `./build` script. This will tag the
-resulting image as `mdq_incommon`, but won't save it anywhere.
+resulting image as `mdq-server-incommon`, but won't save it anywhere.
 
 ## Simple Container Operation
 
-The script `./run` is provided to fire up a copy of the `mdq_incommon`
-image in a new container also called `mdq_incommon`. At present, this
+The script `./run` is provided to fire up a copy of the `mdq-server-incommon`
+image in a new container also called `mdq-server-incommon`. At present, this
 is set up to leave your terminal connected to the container so that
 you will see the initial logging as the application starts up. You
 can hit Ctrl+C when you've seen enough: you don't need to worry about
@@ -115,7 +115,7 @@ The `service` directory contains scripts for host operating system service integ
 
 ### `upstart` Integration
 
-`service/mdq_incommon.conf` is for `upstart`-based systems such as Ubuntu 14.04 LTS.
+`service/mdq-server-ncommon.conf` is for `upstart`-based systems such as Ubuntu 14.04 LTS.
 To work round a [known problem in Docker](https://github.com/docker/docker/issues/6647),
 it makes use of the `inotifywait` command from the `inotify-tools` package, which may
 not already be installed.
@@ -123,10 +123,10 @@ not already be installed.
 Install the service configuration as follows:
 
     # apt-get install inotify-tools
-    # cp service/mdq_incommon.conf /etc/init
-    # initctl start mdq_incommon
+    # cp service/mdq-server-incommon.conf /etc/init
+    # initctl start mdq-server-incommon
 
 ### `systemd` Integration
 
-`service/mdq_incommon` is for `systemd`-based systems. It is at present untested.
+`service/mdq-server-incommon` is for `systemd`-based systems. It is at present untested.
 

@@ -6,8 +6,8 @@
 #MAP_PORT="-p 80:80"
 
 docker run -t --rm \
-    --name=mdq_incommon --hostname="mdq_incommon" \
+    --name=mdq-server-incommon --hostname="mdq-server-incommon" \
     -v `pwd`/logs:/opt/mdq-server/logs \
     -v `pwd`/creds:/opt/mdq-server/creds \
     $MAP_PORT \
-    mdq_incommon
+    mdq-server-incommon

@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t mdq_incommon .
+docker build -t mdq-server-incommon .
