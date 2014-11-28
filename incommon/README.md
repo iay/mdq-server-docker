@@ -106,7 +106,7 @@ The `service` directory contains scripts for host operating system service integ
 
 ### `upstart` Integration
 
-`service/mdq-server-ncommon.conf` is for `upstart`-based systems such as Ubuntu 14.04 LTS.
+`service/mdq-server-incommon.conf` is for `upstart`-based systems such as Ubuntu 14.04 LTS.
 To work round a [known problem in Docker](https://github.com/docker/docker/issues/6647),
 it makes use of the `inotifywait` command from the `inotify-tools` package, which may
 not already be installed.
