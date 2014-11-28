@@ -40,10 +40,6 @@
 
                 <ref bean="populateItemIds"/>
 
-                <!-- Retain only IdP entities. -->
-                <bean parent="XPathFilteringStage"
-                    p:XPathExpression="not(md:IDPSSODescriptor)"/>
-
                 <!-- Add SHA1-transformed IDs for all entities. -->
                 <bean class="net.shibboleth.metadata.pipeline.ItemIdTransformStage">
                     <property name="idTransformers">
