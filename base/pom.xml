@@ -52,19 +52,19 @@
                 <configuration>
                    <artifactItems>
                        <artifactItem>
-                           <groupId>uk.org.iay.mdq</groupId>
-                           <artifactId>mdq-server</artifactId>
-                           <version>${mdq-server.version}</version>
-			   <type>jar</type>
-			   <overWrite>true</overWrite>
-			   <outputDirectory>.</outputDirectory>
+                            <groupId>uk.org.iay.mdq</groupId>
+                            <artifactId>mdq-server</artifactId>
+                            <version>${mdq-server.version}</version>
+                            <type>jar</type>
+                            <overWrite>true</overWrite>
+                            <outputDirectory>.</outputDirectory>
                        </artifactItem>
                    </artifactItems>
                 </configuration>
-	    </plugin>
-	</plugins>
+            </plugin>
+        </plugins>
     </build>
-                       
+
     <repositories>
         <repository>
             <id>shib-release</id>
@@ -87,7 +87,7 @@
         <developerConnection>scm:git:ssh:git@github.com:iay/mdq-server-docker.git</developerConnection>
         <url>https://github.com/iay/mdq-server-docker</url>
     </scm>
-    
+
     <developers>
         <developer>
             <id>iay</id>
