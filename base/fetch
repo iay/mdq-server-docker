@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+#
+# Acquire the .jar artifact.
+#
+# This is made available for local testing of deployments using their
+# respective "test" scripts.
+#
+mvn dependency:copy
+
+# End.
