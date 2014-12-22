@@ -141,58 +141,6 @@
                                         </property>
                                     </bean>
 
-                                    <!-- Tag IdPs having InCommon R&S support entity attribute as "collection:inc-r-and-s-idps". -->
-                                    <bean parent="stage_parent" class="net.shibboleth.metadata.pipeline.SplitMergeStage">
-                                        <property name="selectionStrategy">
-                                            <bean class="net.shibboleth.metadata.dom.XPathItemSelectionStrategy">
-                                                <constructor-arg value="md:Extensions/mdattr:EntityAttributes
-                                                    /saml:Attribute[@Name='http://macedir.org/entity-category-support']
-                                                        [@NameFormat='urn:oasis:names:tc:SAML:2.0:attrname-format:uri']
-                                                    /saml:AttributeValue[.='http://id.incommon.org/category/research-and-scholarship']"/>
-                                                <constructor-arg ref="commonNamespaces"/>
-                                            </bean>
-                                        </property>
-                                        <property name="selectedItemPipeline">
-                                            <bean parent="SimplePipeline">
-                                                <property name="stages">
-                                                    <bean class="net.shibboleth.metadata.pipeline.ItemMetadataAddingStage">
-                                                        <property name="additionalItemMetadata">
-                                                            <bean class="net.shibboleth.metadata.ItemTag"
-                                                                c:itemTag="collection:inc-r-and-s-idps"/>
-                                                        </property>
-                                                    </bean>
-                                                </property>
-                                            </bean>
-                                        </property>
-                                    </bean>
-
-                                    <!-- Tag IdPs having REFEDS R&S support entity attribute as "collection:refeds-r-and-s-idps". -->
-                                    <bean parent="stage_parent" class="net.shibboleth.metadata.pipeline.SplitMergeStage">
-                                        <property name="selectionStrategy">
-                                            <bean class="net.shibboleth.metadata.dom.XPathItemSelectionStrategy">
-                                                <constructor-arg value="md:Extensions/mdattr:EntityAttributes
-                                                    /saml:Attribute[@Name='http://macedir.org/entity-category-support']
-                                                        [@NameFormat='urn:oasis:names:tc:SAML:2.0:attrname-format:uri']
-                                                    /saml:AttributeValue[.='http://refeds.org/category/research-and-scholarship']"/>
-                                                <constructor-arg ref="commonNamespaces"/>
-                                            </bean>
-                                        </property>
-                                        <property name="selectedItemPipeline">
-                                            <bean parent="SimplePipeline">
-                                                <property name="stages">
-                                                    <bean class="net.shibboleth.metadata.pipeline.ItemMetadataAddingStage">
-                                                        <property name="additionalItemMetadata">
-                                                            <list>
-                                                                <bean class="net.shibboleth.metadata.ItemTag"
-                                                                    c:itemTag="collection:refeds-r-and-s-idps"/>
-                                                            </list>
-                                                        </property>
-                                                    </bean>
-                                                </property>
-                                            </bean>
-                                        </property>
-                                    </bean>
-
                                 </list>
                             </property>
                         </bean>
