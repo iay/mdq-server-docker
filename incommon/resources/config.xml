@@ -50,10 +50,6 @@
                 <!-- Remove entities from our own federation. -->
                 <ref bean="removeInCommonEntities"/>
 
-                <!-- Remove all but the entities we want to import. -->
-                <bean parent="XPathFilteringStage"
-                    p:XPathExpression="not(md:IDPSSODescriptor)"/>
-
                 <!-- Filter the entity attributes imported from eduGAIN. -->
                 <bean parent="EntityAttributeFilteringStage" p:id="entityAttributes">
                    <property name="rules">
@@ -101,10 +97,6 @@
                 <!-- Start with the InCommon production aggregate. -->
                 <ref bean="us_incommon_productionEntities"/>
                 <ref bean="populateItemIds"/>
-
-                <!-- Retain only IdP entities. -->
-                <bean parent="XPathFilteringStage"
-                    p:XPathExpression="not(md:IDPSSODescriptor)"/>
 
                 <!-- Include a default registrationAuthority for each entity. -->
                 <ref bean="us_incommon_default_regauth"/>
