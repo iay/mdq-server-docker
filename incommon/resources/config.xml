@@ -58,13 +58,17 @@
                 <bean parent="EntityAttributeFilteringStage" p:id="entityAttributes">
                    <property name="rules">
                        <list>
-                           <!-- Permit REFEDS R&S category membership -->
-                           <bean parent="EntityCategoryMatcher"
+                            <!-- Permit REFEDS R&S category membership -->
+                            <bean parent="EntityCategoryMatcher"
                                 c:category="http://refeds.org/category/research-and-scholarship"/>
 
-                           <!-- Permit REFEDS R&S category support -->
-                           <bean parent="EntityCategorySupportMatcher"
-                               c:category="http://refeds.org/category/research-and-scholarship"/>
+                            <!-- Permit REFEDS R&S category support -->
+                            <bean parent="EntityCategorySupportMatcher"
+                                c:category="http://refeds.org/category/research-and-scholarship"/>
+
+                            <!-- Permit REFEDS Hide From Discovery category membership -->
+                            <bean parent="EntityCategoryMatcher"
+                                c:category="http://refeds.org/category/hide-from-discovery"/>
 
                        </list>
                    </property>
