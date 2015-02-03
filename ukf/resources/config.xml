@@ -24,8 +24,8 @@
     <bean id="source.SAML" parent="SimplePipeline">
         <property name="stages">
             <list>
-                <!-- Start with the UK federation production aggregate. -->
-		<ref bean="uk_productionAggregate"/>
+                <!-- Start with the UK federation test aggregate. -->
+                <ref bean="uk_testAggregate"/>
 
                 <!--
                     Check for fatal errors at the aggregate level:
