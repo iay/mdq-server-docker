@@ -42,6 +42,19 @@
     </bean>
     
     <!--
+        Fetch the preview aggregate.
+    -->
+    <bean id="us_incommon_previewAggregate" parent="DOMResourceSourceStage"
+        p:id="us_incommon_previewAggregate">
+        <property name="DOMResource">
+            <bean parent="HTTPResource">
+                <constructor-arg name="client" ref="httpClient"/>
+                <constructor-arg name="url"    ref="us_incommon_previewAggregate_url"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!--
         InCommon signing certificate.
     -->
     <bean id="us_incommon_signingCertificate" parent="X509CertificateFactoryBean">
@@ -125,6 +138,29 @@
         </property>
     </bean>
     
+    <!--
+        Fetch the preview entities as a collection.
+    -->
+    <bean id="us_incommon_previewEntities" parent="CompositeStage"
+        p:id="us_incommon_previewEntities">
+        <property name="composedStages">
+            <list>
+                <ref bean="us_incommon_previewAggregate"/>
+
+                <!--
+                    Check for fatal errors at the aggregate level:
+                        missing or expired validUntil attribute
+                        invalid signature
+                -->
+                <ref bean="check_validUntil"/>
+                <ref bean="us_incommon_checkSignature"/>
+                <ref bean="errorTerminatingFilter"/>
+
+                <ref bean="disassemble"/>
+            </list>
+        </property>
+    </bean>
+
     <!--
         Synthesise an export collection by filtering the production entities.
     -->
