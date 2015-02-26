@@ -20,6 +20,11 @@
     <import resource="file:${mdq.home}/int_edugain/beans.xml"/>
 
     <!--
+        Import eduGAIN policy.
+    -->
+    <import resource="file:${mdq.home}/edugain-policy.xml"/>
+
+    <!--
         removeInCommonEntities
 
         Filter out entities which declare themselves as registered
@@ -50,27 +55,8 @@
                 <!-- Remove entities from our own federation. -->
                 <ref bean="removeInCommonEntities"/>
 
-                <!-- Filter the entity attributes imported from eduGAIN. -->
-                <bean parent="EntityAttributeFilteringStage" p:id="entityAttributes">
-                   <property name="rules">
-                       <list>
-                            <!-- Permit REFEDS R&S category membership -->
-                            <bean parent="EntityCategoryMatcher"
-                                c:category="http://refeds.org/category/research-and-scholarship"/>
-
-                            <!-- Permit REFEDS R&S category support -->
-                            <bean parent="EntityCategorySupportMatcher"
-                                c:category="http://refeds.org/category/research-and-scholarship"/>
-
-                            <!-- Permit REFEDS Hide From Discovery category membership -->
-                            <bean parent="EntityCategoryMatcher"
-                                c:category="http://refeds.org/category/hide-from-discovery"/>
-
-                       </list>
-                   </property>
-                </bean>
-
-                <ref bean="standardImportActions"/>
+                <!-- Apply policy. -->
+                <ref bean="edugainPolicy"/>
 
                 <!--
                     Silently remove entities which are marked as

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    default-lazy-init="true"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--
+        edugainPolicy
+
+        Applies policy to entities sourced from eduGAIN.
+
+        Entities may be transformed by policy, or marked as being in error.
+
+        Entities with errors are NOT removed here, so that this policy can be
+        used in contexts where reporting is more appropriate than just removal.
+    -->
+    <bean id="edugainPolicy" parent="CompositeStage">
+        <property name="composedStages">
+            <list>
+                <!-- Filter the entity attributes imported from eduGAIN. -->
+                <bean parent="EntityAttributeFilteringStage" p:id="entityAttributes">
+                   <property name="rules">
+                       <list>
+                            <!-- Permit REFEDS R&S category membership -->
+                            <bean parent="EntityCategoryMatcher"
+                                c:category="http://refeds.org/category/research-and-scholarship"/>
+
+                            <!-- Permit REFEDS R&S category support -->
+                            <bean parent="EntityCategorySupportMatcher"
+                                c:category="http://refeds.org/category/research-and-scholarship"/>
+
+                            <!-- Permit REFEDS Hide From Discovery category membership -->
+                            <bean parent="EntityCategoryMatcher"
+                                c:category="http://refeds.org/category/hide-from-discovery"/>
+
+                       </list>
+                   </property>
+                </bean>
+
+                <ref bean="standardImportActions"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
