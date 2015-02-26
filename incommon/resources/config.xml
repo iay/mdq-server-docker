@@ -84,9 +84,6 @@
                 <ref bean="us_incommon_productionEntities"/>
                 <ref bean="populateItemIds"/>
 
-                <!-- Include a default registrationAuthority for each entity. -->
-                <ref bean="us_incommon_default_regauth"/>
-
                 <!-- Merge in entities from eduGAIN. -->
                 <bean id="mergeProductionMDXEntities" parent="PipelineMergeStage.deduplicate"
                     p:id="mergeProductionMDXortedEntities">
