@@ -55,6 +55,10 @@
                 <!-- Remove entities from our own federation. -->
                 <ref bean="removeInCommonEntities"/>
 
+                <!-- Populate identifiers for future actions. -->
+                <ref bean="populateItemIds"/>
+                <ref bean="populateRegistrationAuthorities"/>
+
                 <!-- Apply policy. -->
                 <ref bean="edugainPolicy"/>
 

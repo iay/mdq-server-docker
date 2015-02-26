@@ -23,7 +23,7 @@
         <property name="composedStages">
             <list>
                 <!-- Filter the entity attributes imported from eduGAIN. -->
-                <bean parent="EntityAttributeFilteringStage" p:id="entityAttributes">
+                <bean parent="EntityAttributeFilteringStage">
                    <property name="rules">
                        <list>
                             <!-- Permit REFEDS R&S category membership -->
@@ -42,7 +42,80 @@
                    </property>
                 </bean>
 
-                <ref bean="standardImportActions"/>
+                <!--
+                    The following two namespaces are always stripped because they are
+                    specific to the UK registrar and can't be valid when imported from
+                    some other source.
+                -->
+                <ref bean="stripUkfedlabelNamespace"/>
+                <ref bean="stripWayfNamespace"/>
+
+                <ref bean="cleanImport"/>
+                <ref bean="stripAAMDUI"/>
+                <ref bean="trimImportElementWhitespace"/>
+                <ref bean="removeEmptyExtensions"/>
+                <ref bean="checkSchemas"/>
+
+                <!--
+                    We do not currently apply the complete battery of checking rulesets used by
+                    the UK federation. Originally, this was because of issues porting some rules
+                    into the MDA 0.9 environment.
+
+                    For reference, here is an expanded list of the individual checking beans
+                    so that we can review and reintroduce those which seem appropriate.
+
+                    CHECK_imported:
+                        CHECK_std:
+                            <ref bean="check_adfs"/>
+                            <ref bean="check_algsupport"/>
+                            <ref bean="check_bindings"/>
+                            <ref bean="check_hoksso"/>
+                            <ref bean="check_idpdisc"/>
+                            <ref bean="check_incmd"/>
+                            <ref bean="check_init"/>
+                            <ref bean="check_mdattr"/>
+                            <ref bean="check_mdiop"/>
+                            <ref bean="check_mdrpi"/>
+                            <ref bean="check_mdui"/>
+                            <ref bean="check_misc"/>
+                            <ref bean="check_reqattr"/>
+                            <ref bean="check_saml1"/>
+                            <ref bean="check_saml2"/>
+                            <ref bean="check_saml2int"/>
+                            <ref bean="check_saml2meta"/>
+                            <ref bean="check_shibboleth"/>
+                            <ref bean="check_uk_trust"/>
+                        <ref bean="check_dup_display"/>
+                        <ref bean="check_regscope"/>
+                        <ref bean="check_namespaces"/>
+                -->
+
+                <bean parent="X509ValidationStage">
+                    <property name="validators">
+                        <list>
+                            <!-- Error on RSA key length less than 2048 bits. -->
+                            <bean parent="X509RSAKeyLengthValidator"
+                                p:warningBoundary="0" p:errorBoundary="2048"/>
+                            <!-- Error on small RSA public exponents. -->
+                            <bean parent="X509RSAExponentValidator"/>
+
+                            <!--
+                                Debian weak key blacklists.
+
+                                Don't need to check for keys below our minimum key size.
+                            -->
+                            <ref bean="debian.2048"/>
+                            <ref bean="debian.4096"/>
+
+                            <!--
+                                Compromised key blacklists.
+
+                                Again, don't need to check for keys below our minimum key size.
+                            -->
+                            <ref bean="compromised.2048"/>
+                        </list>
+                    </property>
+                </bean>
             </list>
         </property>
     </bean>
