@@ -4,7 +4,7 @@
 
 This project is a proof of concept deployment of the
 [`mdq-server`](https://github.com/iay/mdq-server) web application
-customised to serve up Identity Provider metadata from the
+customised to serve up metadata from the
 [InCommon Federation](https://incommon.org) and the
 [eduGAIN](http://www.edugain.org) inter-federation metadata exchange service.
 

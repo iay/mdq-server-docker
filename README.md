@@ -11,8 +11,9 @@ The following directories contain Docker recipes for specific
 deployments:
 
 * [`incommon`](incommon/) is a deployment configured to
-serve up Identity Provider metadata from the
-[InCommon Federation](https://incommon.org).
+serve up metadata from the
+[InCommon Federation](https://incommon.org) and the
+[eduGAIN](http://www.edugain.org) inter-federation metadata exchange service.
 
 * [`static`](static/) serves up metadata sourced from a static
 metadata aggregate. The intended use is as a test target for
@@ -22,9 +23,9 @@ Shibboleth unit tests.
 [UK Access Management Federation](http://ukfederation.org.uk/)'s
 production metadata aggregate.
 
-Each deployment is built on top of the `mdq-server-base` image,
+Each deployment is built on top of the `iay/mdq-server-base` image,
 which factors out a lot of common configuration. The recipe for
-the `mdq-server-base` image can be found in the [`base`](base/) directory.
+the `iay/mdq-server-base` image can be found in the [`base`](base/) directory.
 You should build the base image before building any of the
 deployment images.
 
@@ -34,7 +35,7 @@ development. Use `./cleanup -n` to "dry run" and see what it would remove.
 
 ## Copyright and License
 
-The entire package is Copyright (C) 2014, Ian A. Young.
+The entire package is Copyright (C) 2014--2015, Ian A. Young.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
