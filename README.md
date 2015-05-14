@@ -35,7 +35,7 @@ development. Use `./cleanup -n` to "dry run" and see what it would remove.
 
 ## Copyright and License
 
-The entire package is Copyright (C) 2014--2015, Ian A. Young.
+The entire package is Copyright (C) 2014&ndash;2015, Ian A. Young.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
