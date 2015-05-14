@@ -25,25 +25,6 @@
     <import resource="file:${mdq.home}/edugain-policy.xml"/>
 
     <!--
-        removeInCommonEntities
-
-        Filter out entities which declare themselves as registered
-        by our federation.  We don't want those coming back in
-        from another registrar or metadata exchange as they may be
-        old versions of entities we have deregistered, or spoofed.
-    -->
-    <bean id="removeInCommonEntities" parent="EntityRegistrationAuthorityFilterStage"
-        p:id="removeInCommonEntities">
-        <property name="designatedRegistrationAuthorities">
-            <list>
-                <ref bean="us_incommon_registrar"/>
-            </list>
-        </property>
-        <property name="requiringRegistrationInformation" value="true"/>
-        <property name="whitelistingRegistrationAuthorities" value="false"/>
-    </bean>
-
-    <!--
         edugain_importPipeline
     -->
     <bean id="edugain_importPipeline" parent="SimplePipeline"
@@ -51,9 +32,6 @@
         <property name="stages">
             <list>
                 <ref bean="int_edugain_productionEntities"/>
-
-                <!-- Remove entities from our own federation. -->
-                <ref bean="removeInCommonEntities"/>
 
                 <!-- Populate identifiers for future actions. -->
                 <ref bean="populateItemIds"/>
