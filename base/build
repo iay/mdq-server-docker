@@ -17,6 +17,6 @@ mvn dependency:copy
 #
 # Build the base image.
 #
-docker build -t mdq-server-base .
+docker build -t iay/mdq-server-base .
 
 # End.

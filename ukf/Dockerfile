@@ -1,7 +1,7 @@
 #
-# mdq-server-ukf dockerfile
+# iay/mdq-server-ukf dockerfile
 #
-FROM mdq-server-base
+FROM iay/mdq-server-base
 
 MAINTAINER Ian Young <ian@iay.org.uk>
 

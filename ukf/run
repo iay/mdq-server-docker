@@ -10,4 +10,4 @@ docker run -t --rm \
     -v `pwd`/logs:/opt/mdq-server/logs \
     -v `pwd`/creds:/opt/mdq-server/creds \
     $MAP_PORT \
-    mdq-server-ukf
+    iay/mdq-server-ukf

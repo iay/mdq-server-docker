@@ -1,19 +1,20 @@
-# `mdq-server-incommon`
+# `iay/mdq-server-incommon`
 
 ## `mdq-server` Proof of Concept Deployment
 
 This project is a proof of concept deployment of the
 [`mdq-server`](https://github.com/iay/mdq-server) web application
 customised to serve up Identity Provider metadata from the
-[InCommon Federation](https://incommon.org).
+[InCommon Federation](https://incommon.org) and the
+[eduGAIN](http://www.edugain.org) inter-federation metadata exchange service.
 
 Deployment is via a [Docker](http://www.docker.com) container built
-on top of the `mdq-server-base` image built using the recipe in the
+on top of the `iay/mdq-server-base` image built using the recipe in the
 sibling `base` directory.
 
 ## Configuration and Build
 
-Configuration of the application is performed through modifying the files
+Configuration of the application is performed by modifying the files
 in `resources/`, in particular the `config.xml` and `application.properties`
 files. These assume the baseline configuration from the upstream
 [`mdq-server`](https://github.com/iay/mdq-server) project.
@@ -53,12 +54,12 @@ want to use, just execute the `./keygen` script once. This will create a
 corresponding 10-year self-signed certificate.
 
 To build the image, execute the `./build` script. This will tag the
-resulting image as `mdq-server-incommon`, but won't save it anywhere.
+resulting image as `iay/mdq-server-incommon`, but won't push it anywhere.
 
 ## Simple Container Operation
 
-The script `./run` is provided to fire up a copy of the `mdq-server-incommon`
-image in a new container also called `mdq-server-incommon`. At present, this
+The script `./run` is provided to fire up a copy of the `iay/mdq-server-incommon`
+image in a new container called `mdq-server-incommon`. At present, this
 is set up to leave your terminal connected to the container so that
 you will see the initial logging as the application starts up. You
 can hit Ctrl+C when you've seen enough: you don't need to worry about
@@ -90,7 +91,7 @@ The `./terminate` script stops the container *and then removes it.*
 
 ## Testing
 
-You can run the `mdq-server-incommon` deployment directly using the `./test` script in
+You can run the deployment directly using the `./test` script in
 order to test the configuration in an environment that does not have
 Docker available.
 

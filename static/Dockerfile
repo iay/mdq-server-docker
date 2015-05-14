@@ -1,7 +1,7 @@
 #
-# mdq-server-static dockerfile
+# iay/mdq-server-static dockerfile
 #
-FROM mdq-server-base
+FROM iay/mdq-server-base
 
 MAINTAINER Ian Young <ian@iay.org.uk>
 

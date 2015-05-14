@@ -1,4 +1,4 @@
-# `mdq-server-base`
+# `iay/mdq-server-base`
 
 ## `mdq-server` Deployment Base Container
 
@@ -17,5 +17,5 @@ This will:
 * Pull the latest version of the Java library image.
 * Acquire the `.jar` artifact containing the web application bundled
 with an appropriate application container (usually Jetty).
-* Build the Docker image and tag it as `mdq-server-base`.
+* Build the Docker image and tag it as `iay/mdq-server-base`.
 
