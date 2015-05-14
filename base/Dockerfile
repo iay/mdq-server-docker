@@ -1,7 +1,7 @@
 #
 # mdq-server base dockerfile
 #
-FROM dockerfile/java:oracle-java8
+FROM java:openjdk-8
 
 MAINTAINER Ian Young <ian@iay.org.uk>
 

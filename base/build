@@ -7,7 +7,7 @@
 #
 # Make sure we have the latest version of the Java image we use.
 #
-docker pull dockerfile/java:oracle-java8
+docker pull java:openjdk-8
 
 #
 # Acquire the .jar artifact.
