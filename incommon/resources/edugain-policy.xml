@@ -27,7 +27,7 @@
 
                     Filter out entities which declare themselves as registered
                     by our federation.  We don't want those coming back in
-		            from another registrar or metadata exchange as they may be
+                    from another registrar or metadata exchange as they may be
                     old versions of entities we have deregistered, or spoofed.
                 -->
                 <bean id="removeInCommonEntities" parent="EntityRegistrationAuthorityFilterStage"
