@@ -39,6 +39,7 @@
                 <ref bean="disassemble"/>
 
                 <ref bean="populateItemIds"/>
+                <ref bean="populateRegistrationAuthorities"/>
 
                 <!-- Add SHA1-transformed IDs for all entities. -->
                 <bean class="net.shibboleth.metadata.pipeline.ItemIdTransformStage">

@@ -65,6 +65,7 @@
                 <!-- Start with the InCommon production aggregate. -->
                 <ref bean="us_incommon_productionEntities"/>
                 <ref bean="populateItemIds"/>
+                <ref bean="populateRegistrationAuthorities"/>
 
                 <!-- Merge in entities from eduGAIN. -->
                 <bean id="mergeProductionMDXEntities" parent="PipelineMergeStage.deduplicate"
