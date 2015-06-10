@@ -39,6 +39,20 @@
                         </list>
                     </property>
                 </bean>
+
+                <!--
+                    Perform an identity transform to ward off signature issues.
+
+                    See https://issues.shibboleth.net/jira/browse/MDA-144
+                -->
+                <bean id="identity.transform" parent="XSLTransformationStage">
+                    <property name="XSLResource">
+                        <bean parent="ClassPathResource">
+                            <constructor-arg value="identity.xsl"/>
+                        </bean>
+                    </property>
+                </bean>
+
             </list>
         </property>
     </bean>
