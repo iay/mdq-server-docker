@@ -5,9 +5,15 @@
 #
 #MAP_PORT="-p 80:80"
 
+#
+# Which docker network to deploy into. The value here is for my
+# own staging server; use "bridge" for the default docker network.
+#
+NETWORK=nginx-109
+
 docker run -t --rm \
     --name=mdq-server-incommon --hostname="mdq-server-incommon" \
     -v `pwd`/logs:/opt/mdq-server/logs \
     -v `pwd`/creds:/opt/mdq-server/creds \
-    $MAP_PORT \
+    $MAP_PORT --net=$NETWORK \
     iay/mdq-server-incommon

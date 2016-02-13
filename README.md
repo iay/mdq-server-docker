@@ -29,13 +29,20 @@ the `iay/mdq-server-base` image can be found in the [`base`](base/) directory.
 You should build the base image before building any of the
 deployment images.
 
+**Note:** The individual `run` scripts for the above deployments are
+customised for use on my own staging server. In this environment, the
+various `mdq-server-*` containers are placed behind an `nginx` proxy
+in a Docker network called `nginx-109` rather than being directly exposed.
+You will almost certainly need to change these scripts for your own
+deployment.
+
 The `./cleanup` script can be used at any time to remove orphaned
 containers and images, which Docker tends to create in abundance during
 development. Use `./cleanup -n` to "dry run" and see what it would remove.
 
 ## Copyright and License
 
-The entire package is Copyright (C) 2014&ndash;2015, Ian A. Young.
+The entire package is Copyright (C) 2014&ndash;2016, Ian A. Young.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
