@@ -12,7 +12,7 @@ docker pull java:openjdk-8
 #
 # Acquire the .jar artifact.
 #
-mvn dependency:copy
+mvn --update-snapshots dependency:copy
 
 #
 # Build the base image.

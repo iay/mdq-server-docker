@@ -6,6 +6,6 @@
 # This is made available for local testing of deployments using their
 # respective "test" scripts.
 #
-mvn dependency:copy
+mvn --update-snapshots dependency:copy
 
 # End.

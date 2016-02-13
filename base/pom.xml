@@ -58,6 +58,7 @@
                             <type>jar</type>
                             <overWrite>true</overWrite>
                             <outputDirectory>.</outputDirectory>
+                            <destFileName>mdq-server.jar</destFileName>
                        </artifactItem>
                    </artifactItems>
                 </configuration>
@@ -78,6 +79,27 @@
             <url>https://build.shibboleth.net/nexus/content/repositories/snapshots</url>
             <releases>
                 <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>iay-releases</id>
+            <url>https://apps.iay.org.uk/nexus/content/repositories/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>iay-snapshots</id>
+            <url>https://apps.iay.org.uk/nexus/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>iay-thirdparty</id>
+            <url>https://apps.iay.org.uk/nexus/content/repositories/thirdparty</url>
+            <releases>
+                <enabled>true</enabled>
             </releases>
         </repository>
     </repositories>
