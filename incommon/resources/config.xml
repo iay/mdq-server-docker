@@ -15,65 +15,22 @@
     <import resource="file:${mdq.home}/us_incommon/beans.xml"/>
 
     <!--
-        Import eduGAIN beans.
-    -->
-    <import resource="file:${mdq.home}/int_edugain/beans.xml"/>
-
-    <!--
-        Import eduGAIN policy.
-    -->
-    <import resource="file:${mdq.home}/edugain-policy.xml"/>
-
-    <!--
-        edugain_importPipeline
-    -->
-    <bean id="edugain_importPipeline" parent="SimplePipeline"
-        p:id="edugain_importPipeline">
-        <property name="stages">
-            <list>
-                <ref bean="int_edugain_productionEntities"/>
-
-                <!-- Populate identifiers for future actions. -->
-                <ref bean="populateItemIds"/>
-                <ref bean="populateRegistrationAuthorities"/>
-
-                <!-- Apply policy. -->
-                <ref bean="edugainPolicy"/>
-
-                <!--
-                    Silently remove entities which are marked as
-                    having errors.
-                -->
-                <ref bean="errorRemover"/>
-            </list>
-        </property>
-    </bean>
-
-    <!--
         Pipeline used to acquire metadata for service.
 
         Input: empty collection.
 
         Output: collection of individual entity metadata items.
 
-        The main line of this pipeline imports and processes entities from InCommon.
-        Entities from eduGAIN are merged in from a separate pipeline.
+        This pipeline imports and processes entities from the InCommon
+        preview aggregate.
     -->
     <bean id="source.SAML" parent="SimplePipeline">
         <property name="stages">
             <list>
-                <!-- Start with the InCommon production aggregate. -->
-                <ref bean="us_incommon_productionEntities"/>
+                <!-- Start with the InCommon preview aggregate. -->
+                <ref bean="us_incommon_previewEntities"/>
                 <ref bean="populateItemIds"/>
                 <ref bean="populateRegistrationAuthorities"/>
-
-                <!-- Merge in entities from eduGAIN. -->
-                <bean id="mergeProductionMDXEntities" parent="PipelineMergeStage.deduplicate"
-                    p:id="mergeProductionMDXortedEntities">
-                    <property name="mergedPipelines">
-                        <ref bean="edugain_importPipeline"/>
-                    </property>
-                </bean>
 
                 <!-- Add SHA1-transformed IDs for all entities. -->
                 <bean class="net.shibboleth.metadata.pipeline.ItemIdTransformStage">
