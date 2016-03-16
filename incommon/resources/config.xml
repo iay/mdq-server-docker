@@ -39,33 +39,6 @@
                     </property>
                 </bean>
 
-                <!-- Additional processing for IdPs only. -->
-                <bean parent="stage_parent" class="net.shibboleth.metadata.pipeline.SplitMergeStage">
-                    <!-- Select IdP entities. -->
-                    <property name="selectionStrategy">
-                        <bean class="net.shibboleth.metadata.dom.XPathItemSelectionStrategy">
-                            <constructor-arg value="md:IDPSSODescriptor"/>
-                            <constructor-arg ref="commonNamespaces"/>
-                        </bean>
-                    </property>
-                    <property name="selectedItemPipeline">
-                        <bean parent="SimplePipeline">
-                            <property name="stages">
-                                <list>
-
-                                    <!-- Tag all IdPs as "collection:idps". -->
-                                    <bean class="net.shibboleth.metadata.pipeline.ItemMetadataAddingStage">
-                                        <property name="additionalItemMetadata">
-                                            <bean class="net.shibboleth.metadata.ItemTag" c:itemTag="collection:idps"/>
-                                        </property>
-                                    </bean>
-
-                                </list>
-                            </property>
-                        </bean>
-                    </property>
-                </bean>
-
                 <!--
                     Perform an identity transform to ward off signature issues.
 
