@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#
+# A simple script to intensively exercise the local deployment to
+# make sure that log rollover is happening correctly.
+#
+# Adjust the WHERE variable to point it at the appropriate endpoint.
+#
+WHERE=localhost:8080
+
+while true
+do
+    curl --silent --output /dev/null \
+       http://$WHERE/global/entities/https%3a%2f%2fwiki.shibboleth.net%2fshibboleth
+    sleep 1
+done
