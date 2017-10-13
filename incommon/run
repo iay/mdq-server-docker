@@ -11,7 +11,7 @@
 #
 NETWORK=nginx-109
 
-docker run -t --rm \
+docker run -d --restart=unless-stopped \
     --name=mdq-server-incommon --hostname="mdq-server-incommon" \
 	--log-driver json-file --log-opt max-size=10m --log-opt max-file=3 \
     -v `pwd`/logs:/opt/mdq-server/logs \
