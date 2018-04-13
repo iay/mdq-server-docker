@@ -1,7 +1,7 @@
 #
 # mdq-server base dockerfile
 #
-FROM java:openjdk-8
+FROM openjdk:8-slim
 
 MAINTAINER Ian Young <ian@iay.org.uk>
 
