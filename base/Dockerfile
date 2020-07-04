@@ -1,16 +1,25 @@
 #
 # mdq-server base dockerfile
 #
-FROM openjdk:8-slim
+FROM ianayoung/mdq-server:latest
 
 MAINTAINER Ian Young <ian@iay.org.uk>
 
-WORKDIR /opt/mdq-server
+#
+# VOLS_BASE is where we mount volumes. This is outside the application
+# proper for backwards compatibility.
+#
+ENV VOLS_BASE=/opt/mdq-server
 
-ADD mdq-server.jar /opt/mdq-server/
+#
+# MDQ_HOME is where the application's resources live.
+#
+ENV MDQ_HOME=/workspace/BOOT-INF/classes
 
-EXPOSE 80
+EXPOSE 8080
 
-VOLUME ["/opt/mdq-server/logs", "/opt/mdq-server/creds"]
+ENV CREDS_DIR=${VOLS_BASE}/creds
+ENV LOGS_DIR=${VOLS_BASE}/logs
+VOLUME ["${LOGS_DIR}", "${CREDS_DIR}"]
 
-CMD ["java", "-jar", "mdq-server.jar"]
+WORKDIR ${MDQ_HOME}

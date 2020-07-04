@@ -1,20 +1,6 @@
 #!/usr/bin/env bash
 
 #
-# Build the base docker image.
-#
-
-#
-# Make sure we have the latest version of the Java image we use.
-#
-docker pull openjdk:8-slim
-
-#
-# Acquire the .jar artifact.
-#
-mvn --update-snapshots dependency:copy
-
-#
 # Build the base image.
 #
 docker build -t iay/mdq-server-base .
