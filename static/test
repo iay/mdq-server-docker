@@ -1,3 +1,19 @@
 #!/usr/bin/env bash
 
-java -Dmdq.home=`pwd`/resources -jar ../base/mdq-server.jar
+#
+# Expose the container's port on the host for testing.
+#
+MAP_PORT="-p 8080:8080"
+
+#
+# Deploy into the default docker network.
+#
+NETWORK=bridge
+
+docker run -it --rm \
+    --name=mdq-server-static-test --hostname="mdq-server-static-test" \
+    --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 \
+    -v `pwd`/logs:/opt/mdq-server/logs \
+    -v `pwd`/creds:/opt/mdq-server/creds \
+    $MAP_PORT --net=$NETWORK \
+    iay/mdq-server-static

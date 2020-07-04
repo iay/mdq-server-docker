@@ -3,17 +3,18 @@
 #
 # Uncomment the following if the container is directly exposed.
 #
-#MAP_PORT="-p 80:80"
+#MAP_PORT="-p 8080:8080"
 
 #
 # Which docker network to deploy into. The value here is for my
 # own staging server; use "bridge" for the default docker network.
 #
 NETWORK=nginx-109
+#NETWORK=bridge
 
 docker run -d --restart=unless-stopped \
     --name=mdq-server-static --hostname="mdq-server-static" \
-	--log-driver json-file --log-opt max-size=10m --log-opt max-file=3 \
+    --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 \
     -v `pwd`/logs:/opt/mdq-server/logs \
     -v `pwd`/creds:/opt/mdq-server/creds \
     $MAP_PORT --net=$NETWORK \
