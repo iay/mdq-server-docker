@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 #
-# Expose the container's port on the host for testing.
+# Expose the container's port 80 on the host's port 8080 for testing.
 #
-MAP_PORT="-p 8080:8080"
+MAP_PORT="-p 8080:80"
 
 #
 # Deploy into the default docker network.
@@ -13,7 +13,7 @@ NETWORK=bridge
 docker run -it --rm \
     --name=mdq-server-static-test --hostname="mdq-server-static-test" \
     --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 \
-    -v `pwd`/logs:/opt/mdq-server/logs \
+    -v `pwd`/test-logs:/opt/mdq-server/logs \
     -v `pwd`/creds:/opt/mdq-server/creds \
     $MAP_PORT --net=$NETWORK \
     iay/mdq-server-static

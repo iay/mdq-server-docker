@@ -15,14 +15,14 @@ sibling `base` directory.
 ## Configuration and Build
 
 Configuration of the application is performed by modifying the files
-in `resources/`, in particular the `config.xml` and `application.properties`
+in `resources/`, in particular the `config.xml` and `config/application.properties`
 files. These assume the baseline configuration from the upstream
 [`mdq-server`](https://github.com/iay/mdq-server) project.
 
 If you don't want to sign the resulting metadata responses at all,
 change `spring.profiles.active` to exclude the `sign` profile.
 
-The `server.context-path` property may need to be changed depending on
+The `server.servlet.context-path` property may need to be changed depending on
 the kind of proxy you are using. In my case, I'm using
 [`nginx`](http://nginx.org/en/) which has some
 [odd but by-design behaviour](http://trac.nginx.org/nginx/ticket/262) when

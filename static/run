@@ -3,7 +3,7 @@
 #
 # Uncomment the following if the container is directly exposed.
 #
-#MAP_PORT="-p 8080:8080"
+#MAP_PORT="-p 80:80"
 
 #
 # Which docker network to deploy into. The value here is for my

@@ -3,3 +3,4 @@ mdq-server-*.jar
 mdq-server.jar
 logs
 creds
+test-logs
