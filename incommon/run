@@ -10,10 +10,12 @@
 # own staging server; use "bridge" for the default docker network.
 #
 NETWORK=nginx-109
+#NETWORK=bridge
 
 docker run -d --restart=unless-stopped \
     --name=mdq-server-incommon --hostname="mdq-server-incommon" \
-	--log-driver json-file --log-opt max-size=10m --log-opt max-file=3 \
+    --memory=1.5G \
+    --log-driver json-file --log-opt max-size=10m --log-opt max-file=3 \
     -v `pwd`/logs:/opt/mdq-server/logs \
     -v `pwd`/creds:/opt/mdq-server/creds \
     $MAP_PORT --net=$NETWORK \

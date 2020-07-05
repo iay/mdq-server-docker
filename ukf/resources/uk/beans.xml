@@ -123,7 +123,7 @@
         <!--
             Validity interval must not exceed 30 days.
         -->
-        <property name="maxValidityInterval" value="#{ 1000L * 60 * 60 * 24 * 30 }"/>
+        <property name="maxValidityInterval" value="P30D"/>
     </bean>
     
     

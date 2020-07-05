@@ -38,7 +38,7 @@ about those credentials being saved somewhere you don't want them to be.
 
 The default names for the credential files are `signing.key` and
 `signing.crt`. If you want to use other names for some reason, change
-`application.properties` accordingly.
+`config/application.properties` accordingly.
 
 If you want to sign responses but don't have existing credentials you
 want to use, just execute the `./keygen` script once. This will create a
