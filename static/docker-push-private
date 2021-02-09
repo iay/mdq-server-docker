@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#
+# Push the latest image, just built, to a private repository.
+#
+HERE=iay/mdq-server-static:latest
+THERE=registry.iay.org.uk/mdq-server-static:latest
+
+docker tag ${HERE} ${THERE}
+docker push ${THERE}
