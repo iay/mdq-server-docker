@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t iay/mdq-server-static .
+docker build --pull -t iay/mdq-server-static .
