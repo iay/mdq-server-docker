@@ -18,5 +18,5 @@ docker service create \
   --label traefik.http.routers.mdq-static.service=mdq-static \
   --secret source=mdq-static.crt,target=/opt/mdq-server/creds/signing.crt \
   --secret source=mdq-static.key,target=/opt/mdq-server/creds/signing.key \
-  registry.iay.org.uk/systems/misc/mdq-server-static:latest
+  registry.iay.org.uk/systems/misc/mdq-static:latest
 
