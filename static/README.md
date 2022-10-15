@@ -9,8 +9,7 @@ The intended application is as a test target for Shibboleth
 unit tests.
 
 Deployment is via a [Docker](http://www.docker.com) container built
-on top of the `iay/mdq-server-base` image built using the recipe in the
-sibling `base` directory.
+on top of the `ianayoung/mdq-server:latest` image.
 
 ## Configuration and Build
 
