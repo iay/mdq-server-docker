@@ -1,0 +1,59 @@
+#
+# Stack configuration for the mdq-static service.
+#
+version: "3.5"
+
+services:
+
+  mdq:
+    hostname: "mdq-static"
+    image: "registry.iay.org.uk/systems/misc/mdq-static:latest"
+    networks:
+      - traefik
+    secrets:
+      - source: mdq-static.crt
+        target: /opt/mdq-server/creds/signing.crt
+      - source: mdq-static.key
+        target: /opt/mdq-server/creds/signing.key
+    volumes:
+      - type: tmpfs
+        target: /opt/mdq-server/logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        # Enable Traefik dynamic configuration for this container.
+        - "traefik.enable=true"
+        # Select the network we'll be exposed through
+        - "traefik.docker.network=traefik"
+        # mdq-static service
+        - "traefik.http.services.mdq-static.loadbalancer.server.port=80"
+        # mdq-static router: http://md.iay.org.uk/static
+        - "traefik.http.routers.mdq-static.entrypoints=web"
+        - "traefik.http.routers.mdq-static.rule=Host(`md.iay.org.uk`) && PathPrefix(`/static`)"
+        - "traefik.http.routers.mdq-static.service=mdq-static"
+      placement:
+        constraints:
+          # Deploy on a general x86_64 node
+          - "node.labels.type == general"
+          - "node.platform.arch == x86_64"
+
+secrets:
+  mdq-static.crt:
+    external: true
+  mdq-static.key:
+    external: true
+
+networks:
+  #
+  # We talk to the outside world via traefik, which is an
+  # external (pre-defined) overlay network.
+  #
+  traefik:
+    external: true
+    name: traefik
