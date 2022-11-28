@@ -1,10 +1,12 @@
 #!/bin/bash
 
 #
-# Push the latest image, just built, to a private repository.
+# Build the container image to the private Docker registry.
 #
-HERE=iay/mdq-server-static:latest
-THERE=registry.iay.org.uk/systems/misc/mdq-static:latest
-
-docker tag ${HERE} ${THERE}
-docker push ${THERE}
+# This builds both image variants for deployment.
+#
+docker buildx build --pull \
+    --platform=linux/amd64,linux/arm64 \
+    --tag=registry.iay.org.uk/systems/misc/mdq-static:latest \
+    --output=type=registry \
+    .

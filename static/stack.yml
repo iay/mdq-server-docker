@@ -39,9 +39,8 @@ services:
         - "traefik.http.routers.mdq-static.service=mdq-static"
       placement:
         constraints:
-          # Deploy on a general x86_64 node
+          # Deploy on a general node; no architecture restriction
           - "node.labels.type == general"
-          - "node.platform.arch == x86_64"
 
 secrets:
   mdq-static.crt:

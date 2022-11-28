@@ -1,2 +1,12 @@
-#!/usr/bin/env bash
-docker build --pull -t iay/mdq-server-static .
+#!/bin/bash
+
+#
+# Build the container image to the local Docker image collection.
+#
+# Note that this only builds the appropriate image variant for
+# the local host, for local testing.
+#
+docker buildx build --pull \
+    --tag=iay/mdq-server-static:latest \
+    --output=type=docker \
+    .
