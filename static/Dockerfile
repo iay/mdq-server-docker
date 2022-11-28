@@ -15,7 +15,7 @@ ENV VOLS_BASE=/opt/mdq-server
 # MDQ_HOME is where the application's resources live. This is determined by
 # the buildpack used in the parent container.
 #
-ENV MDQ_HOME=/workspace/BOOT-INF/classes
+ENV MDQ_HOME=/application/BOOT-INF/classes
 
 #
 # The parent container was built by the Spring Boot Maven plugin, which
@@ -38,6 +38,7 @@ WORKDIR ${MDQ_HOME}
 
 ADD resources ${MDQ_HOME}/
 
+WORKDIR /application
 #
 # End.
 #
