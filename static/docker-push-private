@@ -9,4 +9,5 @@ docker buildx build --pull \
     --platform=linux/amd64,linux/arm64 \
     --tag=registry.iay.org.uk/systems/misc/mdq-static:latest \
     --output=type=registry \
+    --builder local \
     .
