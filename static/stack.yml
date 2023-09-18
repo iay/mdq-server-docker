@@ -37,10 +37,6 @@ services:
         - "traefik.http.routers.mdq-static.entrypoints=web"
         - "traefik.http.routers.mdq-static.rule=Host(`md.iay.org.uk`) && PathPrefix(`/static`)"
         - "traefik.http.routers.mdq-static.service=mdq-static"
-      placement:
-        constraints:
-          # Deploy on a general node; no architecture restriction
-          - "node.labels.type == general"
 
 secrets:
   mdq-static.crt:
