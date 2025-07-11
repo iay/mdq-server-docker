@@ -29,8 +29,6 @@ services:
       labels:
         # Enable Traefik dynamic configuration for this container.
         - "traefik.enable=true"
-        # Select the network we'll be exposed through
-        - "traefik.docker.network=traefik"
         # mdq-static service
         - "traefik.http.services.mdq-static.loadbalancer.server.port=80"
         # mdq-static router: http://md.iay.org.uk/static
