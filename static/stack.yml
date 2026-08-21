@@ -26,6 +26,10 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      placement:
+        constraints:
+          # Run on general-purpose node
+          - node.labels.role==gp
       labels:
         # Enable Traefik dynamic configuration for this container.
         - "traefik.enable=true"
