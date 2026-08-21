@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+. parameters.sh
+
+docker ${CONTEXT} stack deploy \
+    --compose-file stack.yml --detach=false \
+    --with-registry-auth \
+    ${STACK}

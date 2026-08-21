@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+. parameters.sh
+
+docker ${CONTEXT} stack rm ${STACK} --detach=false
