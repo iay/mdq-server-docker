@@ -3,11 +3,10 @@
 #
 # Build the container image to the private Docker registry.
 #
-# This builds both image variants for deployment.
+# This builds only the linux/amd64 version for deployment.
 #
 docker buildx build --pull \
-    --platform=linux/amd64,linux/arm64 \
+    --platform=linux/amd64 \
     --tag=registry.iay.org.uk/systems/misc/mdq-static:latest \
     --output=type=registry \
-    --builder local \
     .
